@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase";
 
 const AppContext = createContext(null);
 
-const ADMIN_EMAILS = ["johnmichaellamigo01@gmail.com"];
+const ADMIN_EMAILS = ["johnmichaellamigo01@gmail.com", "bokii04@gmail.com"];
 
 export function AppProvider({ children }) {
   const [page, setPage] = useState("dashboard");
