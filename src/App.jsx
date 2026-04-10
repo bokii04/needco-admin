@@ -1,121 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { AppProvider, useApp } from "./context/AppContext";
+import LoginPage from "./pages/LoginPage";
+import Sidebar from "./components/Sidebar";
+import Topbar from "./components/Topbar";
+import DashboardPage from "./pages/DashboardPage";
+import WorkersPage from "./pages/WorkersPage";
+import JobsPage from "./pages/JobsPage";
+import UsersPage from "./pages/UsersPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import SettingsPage from "./pages/SettingsPage";
 
-function App() {
-  const [count, setCount] = useState(0)
+function AppRouter() {
+  const { user, unauthorized, page } = useApp();
+
+  if (unauthorized) return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#F7F7F5" }}>
+      <div style={{ textAlign: "center", padding: 40 }}>
+        <div style={{ fontSize: 48, marginBottom: 16 }}>🚫</div>
+        <h2 style={{ marginBottom: 8 }}>Access denied</h2>
+        <p style={{ color: "#9B9A97", marginBottom: 24 }}>You don't have admin access to Need.co</p>
+        <button className="btn btn-primary" onClick={() => window.location.href = "https://needco-customer.vercel.app"}>Go to customer app</button>
+      </div>
+    </div>
+  );
+
+  if (!user) return <LoginPage />;
+
+  const renderPage = () => {
+    switch(page) {
+      case "dashboard": return <DashboardPage />;
+      case "workers": return <WorkersPage />;
+      case "jobs": return <JobsPage />;
+      case "users": return <UsersPage />;
+      case "analytics": return <AnalyticsPage />;
+      case "settings": return <SettingsPage />;
+      default: return <DashboardPage />;
+    }
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <div className="main-content" style={{ flex: 1 }}>
+        <Topbar />
+        <div className="page-content">{renderPage()}</div>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default function App() {
+  return <AppProvider><AppRouter /></AppProvider>;
+}
