@@ -54,7 +54,7 @@ export default function DashboardPage() {
           <h1 style={{ fontSize: 20, marginBottom: 4 }}>Good day! 👋</h1>
           <p style={{ color: "var(--text-muted)", fontSize: 13 }}>Here's what's happening with Need.co today</p>
         </div>
-        <button className="btn btn-primary" onClick={() => navigate("workers")}>Review workers →</button>
+        <button className="btn btn-primary" onClick={() => navigate("applicants")}>Review applicants →</button>
       </div>
 
       {/* Stats */}
@@ -125,11 +125,11 @@ export default function DashboardPage() {
                 <div style={{ fontWeight: 500, fontSize: 13, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{w.full_name || "Unknown"}</div>
                 <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{w.city} · Score: {w.approval_score}</div>
               </div>
-              <button className="btn btn-success btn-xs" onClick={() => navigate("workers")}>Review</button>
+              <button className="btn btn-success btn-xs" onClick={() => navigate("applicants")}>Review</button>
             </div>
           ))}
           {stats.pending > 3 && (
-            <button className="btn btn-secondary btn-sm" style={{ width: "100%", marginTop: 12 }} onClick={() => navigate("workers")}>
+            <button className="btn btn-secondary btn-sm" style={{ width: "100%", marginTop: 12 }} onClick={() => navigate("applicants")}>
               View all {stats.pending} pending →
             </button>
           )}
