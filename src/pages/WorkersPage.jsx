@@ -170,3 +170,4 @@ export default function WorkersPage() {
     </div>
   );
 }
+// Notification sending is handled via Supabase directly

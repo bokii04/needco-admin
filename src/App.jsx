@@ -8,6 +8,7 @@ import JobsPage from "./pages/JobsPage";
 import UsersPage from "./pages/UsersPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import SettingsPage from "./pages/SettingsPage";
+import NotificationsPage from "./pages/NotificationsPage";
 
 function AppRouter() {
   const { user, unauthorized, page } = useApp();
@@ -33,6 +34,7 @@ function AppRouter() {
       case "users": return <UsersPage />;
       case "analytics": return <AnalyticsPage />;
       case "settings": return <SettingsPage />;
+      case "notifications": return <NotificationsPage />;
       default: return <DashboardPage />;
     }
   };

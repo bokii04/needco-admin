@@ -6,6 +6,7 @@ const NAV = [
   { id: "jobs", icon: "📋", label: "Jobs" },
   { id: "users", icon: "👤", label: "Users" },
   { id: "analytics", icon: "📊", label: "Analytics" },
+  { id: "notifications", icon: "🔔", label: "Notifications" },
   { id: "settings", icon: "⚙️", label: "Settings" },
 ];
 
